@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :require_login, only: %i[show]
+
   def new
     @user = User.new
   end
@@ -14,6 +16,10 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザー登録に失敗しました'
       render :new
     end
+  end
+
+  def show
+    @user = User.select(:id, :name, :hobby, :profile).find(params[:id])
   end
 
   def user_params

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new show create]
   resources :events do
     collection do
       get :future
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resource :bookmark, only: %i[create destroy], module: :events
     resources :comments, only: %i[create destroy], module: :events
   end
+
+  resources :follows, only: %i[create destroy]
 
   resources :notifications, only: %i[index show]
   namespace :notifications do

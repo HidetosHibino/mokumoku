@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create destroy], module: :events
   end
 
+  resources :follows, only: %i[create destroy]
+
   resources :notifications, only: %i[index show]
   namespace :notifications do
     resource :all_reads, only: %i[create]
